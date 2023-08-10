@@ -13,7 +13,7 @@ $path= Split-Path $mypath -Parent
   
   Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "edrattack0" -Description "edr0.ps1"  -Force
  
-
+  write-host "the first attack will run in 1 hour, now creating the 9 attacks, scheduled one per month over next 9 months"
 
 #scripts to run in the next 9 months, 1 per month
 
@@ -35,6 +35,9 @@ for ($num = 1 ; $num -le 9 ; $num++){
   } 
 
   
-`
+write-host "the 10 schedule task have been created, now it is mandatory to modify them to run without being logged on : to do so you MUST go into task scheduler->library, for each of the 10 schedul tasks click properties->run wheter the user is logged on or not"
+
+Read-Host -Prompt "Press Enter to exit"
+break
 
  
