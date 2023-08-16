@@ -1,19 +1,19 @@
 $mypath = $MyInvocation.MyCommand.Path
 $path= Split-Path $mypath -Parent
 #first script to run now (in 1 hour) : conti
-  $date=(Get-date).AddHours(1) 
+ # $date=(Get-date).AddHours(1) 
   
-  write-output $date
+ # write-output $date
   
-  $action = New-ScheduledTaskAction C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Argument "-file $path\edr0.ps1" 
+ # $action = New-ScheduledTaskAction C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Argument "-file $path\edr0.ps1" 
  
 
-  $trigger =  New-ScheduledTaskTrigger -Once -At $date
-  $principal = New-ScheduledTaskPrincipal -UserID "$env:USERDOMAIN\$env:USERNAME"  -LogonType Password -RunLevel Highest
+ # $trigger =  New-ScheduledTaskTrigger -Once -At $date
+ # $principal = New-ScheduledTaskPrincipal -UserID "$env:USERDOMAIN\$env:USERNAME"  -LogonType Password -RunLevel Highest
   
-  Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "edrattack0" -Description "edr0.ps1"  -Force
+ # Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "edrattack0" -Description "edr0.ps1"  -Force
  
-  write-host "the first attack will run in 1 hour, now creating the 9 attacks, scheduled one per month over next 9 months"
+ # write-host "the first attack will run in 1 hour, now creating the 9 attacks, scheduled one per month over next 9 months"
 
 #scripts to run in the next 9 months, 1 per month
 
