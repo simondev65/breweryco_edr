@@ -17,7 +17,7 @@ $path= Split-Path $mypath -Parent
 
 #scripts to run in the next 9 months, 1 per month
 
-for ($num = 1 ; $num -le 9 ; $num++){    
+for ($num = 1 ; $num -le 8 ; $num++){    
   $a=30*($num)
   write-output $num
   write-output $a
